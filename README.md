@@ -1,7 +1,7 @@
 # 🚀 2do desafio entregable
 Author: Ivan Talijancic
 
-# Contenido del repositorio
+# 📦 Contenido del repositorio
 En este repositorio se entrega el código correspondiente a la resolución del 2do desafón entregable del curso de BackEnd de coderhouse.
 
 ## 📋 Consignas

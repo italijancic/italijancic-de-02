@@ -13,7 +13,7 @@ export class ProductManager {
     if ( !this.#validateFields(title, description, price, thumbnail, code, stock) )
       return
 
-    // Read from file
+    // Read products from file
     this.#readProducts()
 
     // Validate product code not repeat
@@ -69,7 +69,6 @@ export class ProductManager {
       this.products = updatedProducts
       // Write on file
       fs.writeFileSync(this.path, JSON.stringify(this.products), 'utf-8')
-
     } else {
       console.log('Bad or missing porduct id')
     }
