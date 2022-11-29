@@ -7,10 +7,9 @@ export class ProductManager {
     this.path = path
   }
 
-  addProduct = (title, description, price, thumbnail, code, stock) => {
+  addProduct (title, description, price, thumbnail, code, stock) {
 
-    // Validate required args
-    // NOTE: fix type validation
+    // Validate constructor data
     if ( !this.#validateFields(title, description, price, thumbnail, code, stock) )
       return
 
@@ -39,12 +38,12 @@ export class ProductManager {
     fs.writeFileSync(this.path, JSON.stringify(this.products), 'utf-8')
   }
 
-  getProducts = () => {
+  getProducts() {
     this.#readProducts()
     return this.products
   }
 
-  getproductById = (productId) => {
+  getproductById(productId) {
     this.#readProducts()
     const foundedProduct = this.products.find((product) => product.id === productId)
     if (foundedProduct)
@@ -53,7 +52,7 @@ export class ProductManager {
       console.log('Not found')
   }
 
-  updateProduct = (productId, updatedProduct) => {
+  updateProduct(productId, updatedProduct) {
     this.#readProducts
     // Find index of product
     const foundedIndex = this.products.findIndex((product) => product.id === productId)
@@ -76,14 +75,14 @@ export class ProductManager {
     }
   }
 
-  deleteProduct = (productId) => {
+  deleteProduct(productId) {
     this.#readProducts
     this.products = this.products.filter( (product) => product.id !== productId)
     // Write on file
     fs.writeFileSync(this.path, JSON.stringify(this.products), 'utf-8')
   }
 
-  #getMaxId = () => {
+  #getMaxId() {
     let maxId = 0
     this.products.map((event) => {
       if (event.id > maxId) maxId = event.id
@@ -91,7 +90,7 @@ export class ProductManager {
     return maxId
   }
 
-  #readProducts = () => {
+  #readProducts() {
     if (fs.existsSync(this.path)) {
       const products = JSON.parse(fs.readFileSync(this.path, 'utf-8'))
       this.products = products
@@ -100,7 +99,7 @@ export class ProductManager {
     }
   }
 
-  #validateFields = (title, description, price, thumbnail, code, stock) => {
+  #validateFields(title, description, price, thumbnail, code, stock) {
 
     if( !title || !isNaN(title)) {
       console.log('Bad or missing title. Must be a string')
@@ -138,21 +137,3 @@ export class ProductManager {
 
 }
 // End class
-
-
-// // Testing proccess
-
-// // Class instace creation
-// const productManager = new ProductManager('./products.json')
-// console.log(productManager.getProducts())
-
-// // Test addProduct() method
-// productManager.addProduct('producto prueba', 'Este es un producto de prueba', 200, 'Sin imagen', 'abcd123', 25)
-// console.log(productManager.getProducts())
-
-// // Test update
-// let product = productManager.getproductById(1)
-// product.title = 'new title'
-// console.log(product)
-// productManager.updateProduct(1, product)
-// console.log(productManager.getProducts())
